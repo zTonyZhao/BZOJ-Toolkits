@@ -4,7 +4,7 @@
 #Code is ugly because time is limited.
 #Please run it under the environment Python 3
 #Powered by Tony Zhao
-#https://tonyzhao.xyz/bzoj-online-pker
+#https://tonyzhao.xyz/bzoj-toolkits
 import urllib.request, re, sys, platform
 
 if (len(sys.argv) != 3 and len(sys.argv) != 4) or sys.argv[1] == '--help' or sys.argv[1] == '-h' :
