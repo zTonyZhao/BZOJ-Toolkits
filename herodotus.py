@@ -1,4 +1,11 @@
-#! python3 
+#! python3
+#Project Herodotus Version 0.9.5
+#A simple submission history traker of BZOJ
+#Code is ugly because time is limited.
+#Please run it under the environment Python 3
+#Powered by Tony Zhao
+#https://tonyzhao.xyz/bzoj-toolkits
+
 import urllib.request, re, sys, platform
 
 Person = 'THISISNOTAPERSON'
@@ -20,7 +27,7 @@ if len(sys.argv) == 1 or sys.argv[1] == '--help' or sys.argv[1] == '-h' :
 	print("	--name,  -n        BZOJ ID of the person.(Necessery)")
 	print("	--year,  -y       Year of the deadline.(Default INF)")
 	print("	--month, -m      Month of the deadline.(Default INF)")
-	print("	--day,   -y        Day of the deadline.(Default INF)")
+	print("	--day,   -d        Day of the deadline.(Default INF)")
 	print("	--output,-o   Specify the output file of the result.")
 	exit()
 
