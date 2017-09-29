@@ -13,6 +13,7 @@ Year = '10000000'
 Month = '10000000'
 Day = '10000000'
 File = 'THISISNOTAFILE'
+AnotherUser = 'THISISNOTAPERSON'
 
 if len(sys.argv) == 1 or sys.argv[1] == '--help' or sys.argv[1] == '-h' :
 	print("Project Herodotus by Tony Zhao")
@@ -23,12 +24,13 @@ if len(sys.argv) == 1 or sys.argv[1] == '--help' or sys.argv[1] == '-h' :
 	else:
 		print("Usage: python3 %s [Options]" % sys.argv[0])
 	print("Options:")
-	print("	--help,  -h              Show this help information.")
-	print("	--name,  -n        BZOJ ID of the person.(Necessery)")
-	print("	--year,  -y       Year of the deadline.(Default INF)")
-	print("	--month, -m      Month of the deadline.(Default INF)")
-	print("	--day,   -d        Day of the deadline.(Default INF)")
-	print("	--output,-o   Specify the output file of the result.")
+	print("	--help,   -h                     Show this help information.")
+	print("	--name,   -n               BZOJ ID of the person.(Necessery)")
+	print("	--year,   -y              Year of the deadline.(Default INF)")
+	print("	--month,  -m             Month of the deadline.(Default INF)")
+	print("	--day,    -d               Day of the deadline.(Default INF)")
+	print("	--output, -o          Specify the output file of the result.")
+	print("	--compare,-c Compare the result with another user's Problem.")
 	exit()
 
 now = 1
@@ -57,6 +59,11 @@ while now < len(sys.argv):
 		if now + 1 >= len(sys.argv):
 			exit()
 		File = sys.argv[now + 1]
+		now += 1
+	elif sys.argv[now] == '--compare' or sys.argv[now] == '-c' :
+		if now + 1 >= len(sys.argv):
+			exit()
+		AnotherUser = sys.argv[now + 1]
 		now += 1
 	else:
 		print("'%s' is not a recognized Command." % sys.argv[now])
@@ -110,6 +117,15 @@ for i in range(len(AllProblems)):
 	FinalProblems.append(AllProblems[i])
 
 FinalProblems = list(set(FinalProblems))
+
+if AnotherUser != 'THISISNOTAPERSON':
+	URL = "http://www.lydsy.com/JudgeOnline/userinfo.php?user=" + AnotherUser
+	Problems = urllib.request.urlopen(URL).read().decode('utf-8')
+	ProblemPattern = re.compile(r'function p\(id\){document\.write\("<a href=problem\.php\?id="\+id\+">"\+id\+" </a>"\);}\n(.+?)</script>')
+	SplitPattern = re.compile(r'p\((.+?)\);')
+	Problems = SplitPattern.findall(ProblemPattern.findall(Problems)[0])
+	FinalProblems = list(set(FinalProblems).difference(set(Problems)))
+
 
 if File != 'THISISNOTAFILE':
 	FOutput = open(File,"w")
