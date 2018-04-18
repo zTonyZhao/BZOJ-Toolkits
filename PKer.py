@@ -25,8 +25,12 @@ File = 'THISISNOTAFILE'
 if len(sys.argv) == 4:
 	File = sys.argv[3]
 
-ProblemsA = urllib.request.urlopen(URL + PersonA).read().decode('utf-8')
-ProblemsB = urllib.request.urlopen(URL + PersonB).read().decode('utf-8')
+head = {}
+head['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
+req = urllib.request.Request(URL + PersonA,headers=head)
+ProblemsA = urllib.request.urlopen(req).read().decode('utf-8')
+req = urllib.request.Request(URL + PersonB,headers=head)
+ProblemsB = urllib.request.urlopen(req).read().decode('utf-8')
 
 ProblemPattern = re.compile(r'function p\(id\){document\.write\("<a href=problem\.php\?id="\+id\+">"\+id\+" </a>"\);}\n(.+?)</script>')
 SplitPattern = re.compile(r'p\((.+?)\);')
